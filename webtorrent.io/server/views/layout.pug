@@ -1,0 +1,94 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+
+    title= rawTitle || (title && (title + ' - WebTorrent')) || 'WebTorrent'
+    meta(property='og:title', content=`${ rawTitle || (title && (title + " - WebTorrent")) || "WebTorrent" }`)
+
+    meta(name='description', content=`${ desc || "WebTorrent, the streaming torrent client for the browser, Mac, Windows, and Linux" }`)
+    meta(property='og:description', content=`${ desc || "WebTorrent, the streaming torrent client for the browser, Mac, Windows, and Linux" }`)
+
+    meta(property='og:type', content='website')
+    meta(property='og:image', content='/img/WebTorrent.png')
+
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
+    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
+    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
+    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
+    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
+    link(rel='manifest', href='/manifest.json')
+    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#5bbad5')
+    meta(name='msapplication-TileColor', content='#b91d47')
+    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
+    meta(name='theme-color', content='#ffffff')
+
+    link(rel='stylesheet', href='/style.css', charset='utf-8')
+
+    //- Fonts
+    link(rel='stylesheet' href='//fonts.googleapis.com/css?family=Asap:400,700')
+    link(rel='stylesheet' href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic')
+    link(rel='stylesheet' href='//fonts.googleapis.com/css?family=Source+Code+Pro:400,700')
+
+    block head
+
+  body(class=cls || '')
+    .headerWrap
+      header.header
+        h1: a(href='/') WebTorrent
+        nav
+          a(href='/intro') Get Started
+          a(href='/docs') Docs
+          a(href='/faq') FAQ
+          a(href='/desktop', class='new-release') WebTorrent Desktop
+          a(href='https://instant.io', target='_blank') Instant.io
+          if (cls === 'desktop')
+            a.btn(href='https://github.com/webtorrent/webtorrent-desktop', target='_blank') GitHub
+          else
+            a.btn(href='https://github.com/webtorrent/webtorrent', target='_blank') GitHub
+
+    main
+      block body
+    .footerWrap
+      footer.clearfix
+        section
+          h3 Learn
+          a(href='/intro') Get Started
+          a(href='/docs') Docs
+          a(href='/faq') FAQ
+
+        section
+          h3 Connect
+          a(href='https://twitter.com/WebTorrentApp') Twitter
+          a(href='https://github.com/webtorrent/webtorrent') GitHub
+          iframe.gh-button(src='https://ghbtns.com/github-btn.html?user=webtorrent&repo=webtorrent&type=star&count=true&size=large', frameborder='0', scrolling='0', width='160px', height='30px')
+
+        section
+          h3 Support
+          if (cls === 'desktop')
+            a(href='https://github.com/webtorrent/webtorrent-desktop/issues') Open an issue
+          else
+            a(href='https://github.com/webtorrent/webtorrent/issues') Open an issue
+          a(href='https://gitter.im/webtorrent/webtorrent') Chat in Gitter
+          div #webtorrent on IRC (freenode)
+
+        section.sponsors
+          h3 Open Source Sponsors
+          a(href='https://brave.com', rel='nofollow', target='_blank') Brave
+
+    script(src='/bundle.js')
+
+    //- Google Analytics
+    script.
+      window.ga = window.ga || function () {
+        (ga.q = ga.q || []).push(arguments)
+      }
+      ga.l = +new Date
+      ga('create', 'UA-3898076-19', 'auto')
+      ga('send', 'pageview')
+    script(async, src='//www.google-analytics.com/analytics.js')

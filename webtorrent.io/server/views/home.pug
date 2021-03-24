@@ -1,0 +1,95 @@
+extends layout
+
+block body
+  #hero
+    #progressBar
+    h1 Torrents on the <em>web</em>
+    #status.clearfix
+      #statusLeft
+        span.show-leech #{ 'Downloading ' }
+        span.show-seed #{ 'Seeding ' }
+        code: a#torrentLink(href='https://webtorrent.io/torrents/sintel.torrent') sintel.torrent
+        span.show-leech #{ ' from ' }
+        span.show-seed #{ ' to ' }
+        code#numPeers 0 peers
+        | #{ '. ' }
+      #statusRight
+        code#downloaded
+        | #{ ' of '}
+        code#total
+        | #{ ' — '}
+        span#remaining
+    #svgWrap
+      div.torrent-graph
+    #videoWrap
+      .video
+        .videoOverlay
+
+  .feature-block.sponsors
+    article
+      h3 Open Source Supporters
+      .flex-center
+        a(href='https://brave.com', rel='nofollow', target='_blank', class='sponsor')
+          img(src='/img/supporters/brave.png', alt='Brave Software')
+        a(href='/expressvpn', rel='nofollow', target='_blank', class='sponsor')
+          img(src='/img/supporters/expressvpn.png', alt='ExpressVPN')
+        a(href='https://www.enya.ai/?utm_source=webtorrent.io&utm_medium=web', rel='nofollow', target='_blank', class='sponsor')
+          img(src='/img/supporters/enya.png', alt='Enya')
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CE7DT2QY&placement=webtorrentio" id="_carbonads_js"></script>
+
+  .feature-block
+    article
+      h1.minimal Torrents on the <em>desktop</em>
+      a(href='/desktop', title='WebTorrent Desktop')
+        img(src='/img/screenshot-player.png')
+      h2 The streaming torrent client for Mac, Windows, &amp; Linux
+      div.featuredCenter
+        a.btn.large(href='/desktop') Get WebTorrent Desktop
+      p
+        | WebTorrent Desktop is for streaming torrents. Whether it's
+        | video from the
+        = ' '
+        a(href='https://archive.org') Internet Archive
+        | , music from
+        = ' '
+        a(href='https://creativecommons.org/music-communities/') Creative Commons
+        | , or audiobooks from
+        = ' '
+        a(href='https://librivox.org/') Librivox
+        | , you can play it right away. You don't have to wait for it to finish downloading.
+
+      p WebTorrent Desktop is fast, free, non-commercial &amp; open source.
+
+  .feature-block
+    article
+      :markdown
+        # What is WebTorrent?
+
+        **WebTorrent** is a streaming torrent client for the **web browser** and the **desktop**.
+
+        WebTorrent is written completely in JavaScript – the language of the web –
+        and uses **WebRTC** for peer-to-peer transport whenever possible. No
+        browser plugins, extensions, or installation is required to use WebTorrent
+        in your browser.
+
+        ## Why?
+
+        Imagine a peer-to-peer YouTube where viewers help to host the site's
+        content. By making BitTorrent easier to use, we can get more people to
+        participate and take the first steps to re-decentralizing the Internet.
+
+        ## How do I try it out?
+
+        See WebTorrent in action on the Web at [Instant.io](https://instant.io).
+        Send a file to a friend using BitTorrent!
+
+        Or, install [WebTorrent Desktop](/desktop) for Mac, Windows, and Linux.
+        Try out a fast, lightweight, new torrent client today!
+
+  .feature-block
+    article
+      h1.minimal Learn more about WebTorrent
+      div.featuredCenter
+        a.btn.large(href='/intro') Get Started
+        a.btn.large(href='/docs') Docs
+        a.btn.large(href='/faq') FAQ

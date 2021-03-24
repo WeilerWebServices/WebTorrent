@@ -1,0 +1,43 @@
+{
+  "name": "webtorrent-fixtures",
+  "description": "Sample torrent files for the WebTorrent test suite",
+  "version": "1.7.3",
+  "author": {
+    "name": "WebTorrent, LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/webtorrent/webtorrent-fixtures/issues"
+  },
+  "dependencies": {
+    "brfs": "^2.0.0",
+    "parse-torrent": "^7.0.0"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "keywords": [
+    "sample torrents",
+    "test",
+    "test fixtures",
+    "torrent",
+    "torrent files",
+    "webtorrent",
+    "webtorrent test"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/webtorrent-fixtures.git"
+  },
+  "scripts": {
+    "test": "standard && node -e \"require('.')\""
+  }
+}

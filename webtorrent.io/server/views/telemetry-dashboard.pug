@@ -1,0 +1,87 @@
+extends layout
+
+block head
+  link(
+    rel='stylesheet',
+    href='//cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.4/nv.d3.min.css'
+  )
+
+block body
+  article.telemetry-dashboard
+    h1 Telemetry dashboard
+
+    h2 Growth
+    section
+      h3 Active users
+      p For each date, how many unique users ran the app that day? (If they opened the app before but left it running overnight, that still counts.) How many people ran the app anytime in the last week? Last month?
+      svg#chart-actives
+      p
+        strong Week-over-week growth: #{percentWeeklyGrowth}%
+      p Calculated by dividing the number of users in the last 7 days by the previous 7 days. Target: 5+%
+      p
+        strong Total installs: #{summary.totalInstalls.total.toLocaleString()}.
+        |  Windows: #{summary.totalInstalls.win32.toLocaleString()} Mac: #{summary.totalInstalls.darwin.toLocaleString()} Linux: #{summary.totalInstalls.linux.toLocaleString()}
+
+    section
+      h3 Installs
+      svg#chart-installs
+
+    section
+      h3 Retention
+      p
+        | <a href="http://www.applift.com/blog/user-retention">Classic retention</a>: Of users who installed the app exactly <i>n</i> days ago, what percentage used the app today?
+      p
+        | The last timeseries, day30to60, measures bracket retention. Of users who installed the app exactly 60 days ago, how many used the app anytime in the last 30 days?
+      svg#chart-retention
+
+    h2 Quality
+    section
+      h3 Error rate
+      p The fraction of telemetry reports that have uncaught errors. The app sends a report every time it starts, plus once every 12 hours. Shows trailing week average error rate, daily error rate, and the error rate for the latest released version as of the end of each day.
+      svg#chart-error-rate
+
+    section
+      h3 Most common errors on #{mostCommonErrorsDate}
+      p Errors are aggregated by the first 30 characters of the message, highlighted in green. Click on any error to see an example stacktrace.
+      p
+        input(type='checkbox', id='latest-only', checked='checked')
+        label(for='latest-only') Show errors that occur in the latest version (#{latestVersion}) only
+      div.error-header
+        span.error-count Count
+        span.error-message Example message
+      each errVersion in ['latest', 'all']
+        div.error-list(id=('errors-' + errVersion))
+          each error in mostCommonErrors[errVersion]
+            div.error-row
+              div.error-summary
+                span.error-count #{error.count}
+                span.error-message
+                  span.error-message-key #{error.key}
+                  span.error-message-rest #{error.message.substring(error.key.length)}
+              div.error-stacktrace Processes: #{error.processes.join(' ')}, platforms: #{error.platforms.join(' ')}, versions: #{error.versions.join(' ')}
+                |<br />
+                if error.stack
+                  |#{error.stack}
+                else
+                  |No stack trace
+
+    h2 Usage
+    section
+      h3 Version skew
+      p Shows which fraction of users are on each version and how fast updates propagate.
+      svg#chart-versions
+
+    h2 Log files
+    div.telemetry-logs
+      each month in filesByMonth
+        div
+          each file in month
+            a(href=file)
+              =file
+
+    script.
+      window.summary = !{JSON.stringify(summary)}
+      window.versions = !{JSON.stringify(versions)}
+    script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.4/nv.d3.js')
+    script(src='script.js')

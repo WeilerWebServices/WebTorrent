@@ -1,0 +1,78 @@
+{
+  "name": "instant.io",
+  "description": "Secure, anonymous, streaming file transfer",
+  "version": "1.0.0",
+  "author": {
+    "name": "WebTorrent, LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "bugs": {
+    "url": "https://github.com/webtorrent/instant.io/issues"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "create-torrent": "^4.5.0",
+    "date-fns": "^2.17.0",
+    "debug": "^4.3.1",
+    "drag-drop": "^7.0.0",
+    "escape-html": "^1.0.3",
+    "express": "^4.17.1",
+    "jszip": "3.5.0",
+    "prettier-bytes": "^1.0.4",
+    "pug": "^3.0.1",
+    "rollbar": "^2.21.0",
+    "simple-get": "^4.0.0",
+    "simple-peer": "^9.9.3",
+    "throttleit": "^1.0.0",
+    "thunky": "^1.1.0",
+    "upload-element": "^1.0.1",
+    "webtorrent": "^0.114.1"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "husky": "^4.3.8",
+    "nodemon": "^2.0.7",
+    "standard": "*",
+    "stylus": "^0.54.8",
+    "tinyify": "^3.0.0",
+    "watchify": "^4.0.0"
+  },
+  "homepage": "https://instant.io",
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
+  },
+  "keywords": [
+    "data channel",
+    "file transfer",
+    "p2p",
+    "webrtc"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/instant.io.git"
+  },
+  "scripts": {
+    "build": "npm run build-css && npm run build-js",
+    "build-css": "stylus css/main.styl -o static/ -c",
+    "build-js": "browserify --plugin tinyify client > static/bundle.js",
+    "deploy": "./tools/trigger-deploy.sh",
+    "secret-download": "rsync -a -O -v --delete feross@webtorrent:\"/home/feross/www/instant.io/secret/\" secret/",
+    "secret-upload": "rsync -a -O -v --delete secret/ feross@webtorrent:/home/feross/www/instant.io/secret/",
+    "size": "npm run size-js && npm run size-css",
+    "size-css": "npm run build-css && cat static/main.css | gzip | wc -c",
+    "size-js": "npm run build-js && cat static/bundle.js | gzip | wc -c",
+    "start": "node server",
+    "test": "standard",
+    "update-authors": "./tools/update-authors.sh",
+    "watch": "npm run watch-css & npm run watch-js & DEBUG=instant* nodemon server",
+    "watch-css": "stylus css/main.styl -o static/ -w",
+    "watch-js": "watchify client -o static/bundle.js -dv"
+  }
+}
